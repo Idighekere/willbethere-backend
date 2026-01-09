@@ -20,6 +20,7 @@ import { connectDb } from './common/config/database.js'
 const app = express()
 const port = ENVIRONMENT.APP.PORT
 const appName = ENVIRONMENT.APP.NAME
+const frontendUrl = ENVIRONMENT.APP.FRONTEND_URL
 
 /**
  * App Security
@@ -33,6 +34,7 @@ app.use(
             'http://192.168.0.167:5173',
             'http://192.168.3.151:5173',
             'https://willbethere.netlify.app',
+            `${frontendUrl}`,
         ],
         credentials: true,
     })

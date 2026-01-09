@@ -6,6 +6,7 @@ export const ENVIRONMENT = {
         NAME: process.env.APP_NAME,
         PORT: process.env.PORT || 3000,
         ENV: process.env.APP_ENV,
+        FRONTEND_URL: process.env.FRONTEND_URL,
     },
     DB: {
         URL: process.env.DB_URL,
