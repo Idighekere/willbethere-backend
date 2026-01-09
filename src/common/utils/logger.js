@@ -1,5 +1,5 @@
 import winston from 'winston'
-import { ENVIRONMENT } from '../config/environment'
+import { ENVIRONMENT } from '../config/environment.js'
 
 // 1. Define the base transports (Console is always safe)
 const transports = [new winston.transports.Console()]
