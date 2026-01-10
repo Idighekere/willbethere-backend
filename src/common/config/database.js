@@ -3,10 +3,7 @@ import { ENVIRONMENT } from './environment.js'
 
 export const connectDb = async () => {
     try {
-        const conn = await mongoose.connect(ENVIRONMENT.DB.URL, {
-            useNewUrlParser: true,
-            useUnifiedTopology: true,
-        })
+        const conn = await mongoose.connect(ENVIRONMENT.DB.URL)
 
         console.log('MongoDB Connected: ' + conn.connection.host)
     } catch (error) {

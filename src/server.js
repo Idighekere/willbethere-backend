@@ -14,6 +14,8 @@ import { stream } from './common/utils/logger.js'
 import morgan from 'morgan'
 import { connectDb } from './common/config/database.js'
 
+connectDb()
+
 /**
  * Default app configurations
  */
@@ -91,5 +93,4 @@ app.get('*', (req, res) =>
  */
 app.listen(port, () => {
     console.log('=> ' + appName + ' app listening on port ' + port + '!')
-    connectDb()
 })
