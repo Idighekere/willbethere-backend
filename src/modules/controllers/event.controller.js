@@ -1,3 +1,4 @@
+import { ENVIRONMENT } from '../../common/config/environment.js'
 import { sendRSVPMailTemplate } from '../../common/templates/rsvp.js'
 import AppError from '../../common/utils/appError.js'
 import { AppResponse } from '../../common/utils/appResponse.js'
@@ -46,14 +47,20 @@ export const createEvent = catchAsync(async (req, res) => {
         items: itemsSplit,
     })
 
-    const eventData = event._doc;
-    eventData["user"] = user._id;
+    const eventData = event._doc
+    eventData['user'] = user._id
     const attendingGuestCount = await event.attendingGuestCount
     const notAttendingGuestCount = await event.notAttendingGuestCount
     const noResponseCount = await event.noResponseGuestCount
     const plusOnesGuestCount = await event.getTotalPlusOnes()
 
-    return AppResponse(res, 201, 'Event Created Successfully', { ...eventData, attendingGuestCount, notAttendingGuestCount, noResponseCount, plusOnesGuestCount })
+    return AppResponse(res, 201, 'Event Created Successfully', {
+        ...eventData,
+        attendingGuestCount,
+        notAttendingGuestCount,
+        noResponseCount,
+        plusOnesGuestCount,
+    })
 })
 
 export const myEvents = catchAsync(async (req, res) => {
@@ -66,13 +73,13 @@ export const myEvents = catchAsync(async (req, res) => {
             const notAttendingGuestCount = await event.notAttendingGuestCount
             const noResponseCount = await event.noResponseGuestCount
             const plusOnesGuestCount = await event.getTotalPlusOnes()
-            
+
             return {
                 ...event.toObject(),
                 attendingGuestCount,
                 notAttendingGuestCount,
                 noResponseCount,
-                plusOnesGuestCount
+                plusOnesGuestCount,
             }
         })
     )
@@ -100,7 +107,13 @@ export const getEvent = catchAsync(async (req, res) => {
     const noResponseCount = await event.noResponseGuestCount
     const plusOnesGuestCount = await event.getTotalPlusOnes()
 
-    return AppResponse(res, 200, '', { ...event._doc, attendingGuestCount, notAttendingGuestCount, noResponseCount, plusOnesGuestCount })
+    return AppResponse(res, 200, '', {
+        ...event._doc,
+        attendingGuestCount,
+        notAttendingGuestCount,
+        noResponseCount,
+        plusOnesGuestCount,
+    })
 })
 
 export const myRSVPs = catchAsync(async (req, res) => {
@@ -151,7 +164,7 @@ export const inviteGuest = catchAsync(async (req, res) => {
             title: event.name,
             banner: event.image,
             details: event.description,
-            url: `https://willbethere.netlify.app/rsvp/${event.id}?guest=${guest.id}`,
+            url: `${ENVIRONMENT.APP.FRONTEND_URL}/rsvp/${event.id}?guest=${guest.id}`,
         })
 
         await sendMail(email, `You are invited to ${event.name}`, template)
